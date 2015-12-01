@@ -1,3 +1,5 @@
+//Todo filter components
+
 <template>
     <div class="filter-pane">
         <div @click="toggleActive">
