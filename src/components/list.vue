@@ -1,14 +1,14 @@
 <template>
     <li class="list-item"
         v-for="list in lists"
-        v-on:dblclick="toggleEdit(list)">
+        @dblclick="toggleEdit(list)">
         <div class="item-content"
         v-bind:class="{editable:list.editable}"
         contenteditable="{{list.editable}}">
             {{ list.name }}
         </div>
-        <a href="#" class="commit-btn" v-on:click="toggleEdit(list)" v-show="list.editable">确认</a>
-        <span class="remove-btn" v-on:click="remove(list)">&times;</span>
+        <a href="#" class="commit-btn" @click="toggleEdit(list)" v-show="list.editable">确认</a>
+        <span class="remove-btn" @click="remove(list)">&times;</span>
     </li>
 </template>
 

@@ -1,20 +1,24 @@
 <template>
   <div style="margin:0 auto;width:600px;">
+    <h1>{{appTitle}}</h1>
     <my-item-add :title.sync="itemTitle" :place-holder="placeHolder"></my-item-add>
     <ul class="list">
       <my-item-list :lists="itemList"></my-item-list>
     </ul>
+    <my-item-filter></my-item-filter>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 
-  import * as MyItemAdd from './input.vue';
-  import * as MyItemList from './list.vue';
+  import MyItemAdd from './input.vue';
+  import MyItemList from './list.vue';
+  import MyItemFilter from './filter.vue';
 
   export default {
     data(){
       return{
+        appTitle:'Todo List',
         itemTitle:'',
         itemList:[{name:'first item',editable:false}],
         placeHolder:'type your title here...'
@@ -24,13 +28,16 @@
     },
     components:{
       MyItemAdd,
-      MyItemList
+      MyItemList,
+      MyItemFilter
     }
   }
 
 </script>
 
 <style lang="stylus">
+  h1
+      text-align center
   input,button
       background none
       border 1px solid #999
