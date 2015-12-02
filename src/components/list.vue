@@ -6,7 +6,8 @@
         <div class="item-content"
         v-bind:class="{editable:list.editable}"
         contenteditable="{{list.editable}}">
-          <input type="checkbox" v-model="list.done">
+          <input type="checkbox" v-model="list.done" id="todo-{{$index}}">
+          <label for="todo-{{$index}}"></label>
           {{ list.name }}
         </div>
         <a href="#" class="commit-btn" @click="toggleEdit(list)" v-show="list.editable">确认</a>
@@ -52,9 +53,27 @@
                 float left
                 text-indent 1em
                 box-sizing border-box
+                label
+                  border-radius 50%
+                  width 15px
+                  height 15px
+                  background #fff
+                  display inline-block
+                  vertical-align middle
+                  position relative
+                  &:checked
+                    background #333
                 input[type="checkbox"]
-                  transform scale(2)
-                  margin 5px
+                  display none
+                  &:checked+label:before
+                    content ''
+                    position absolute
+                    background #16a085
+                    border-radius 50%
+                    width 60%
+                    height 60%
+                    left 20%
+                    top 20%
             .editable
                 background #fff
                 color #333

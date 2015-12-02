@@ -3,10 +3,13 @@
     <h1><img :src="logoUrl" alt="" width="30" height="30" /> {{appTitle}}</h1>
     <my-item-add :title.sync="itemTitle" :place-holder="placeHolder"></my-item-add>
     <div class="tabs">
-      <p class="info-text">
+      <p class="info-text" v-show="listCount > 0">
         {{listCount}} todo(s) remain
       </p>
-      <my-item-filter></my-item-filter>
+      <p class="info-text" v-show="listCount === 0">
+        No todos
+      </p>
+      <my-item-filter :tab="visibility"></my-item-filter>
     </div>
     <ul class="list">
       <my-item-list :lists="filteredTodos"></my-item-list>
@@ -20,7 +23,7 @@
   import MyItemList from './../components/list.vue';
   import MyItemFilter from './../components/filter.vue';
   import TodoStorage from 'babel!./../common/store';
-  import LogoImg from 'url!./../assets/logo.png';
+  import LogoImg from 'file?name=[name].[ext]!./../assets/logo.png';
 
   export default {
     data(){
@@ -42,9 +45,12 @@
       },
       filteredTodos(){
         let tab = this.visibility;
-        return tab == 'all' ? this.itemList: this.itemList.filter(function(todo){
-          return tab == 'todo' ? todo.done == false : todo.done == true;
-        });
+        return tab == 'all' ?
+            this.itemList
+            :
+            this.itemList.filter(function(todo){
+                return tab == 'todo' ? todo.done == false : todo.done == true;
+            });
       }
     },
     ready(){
@@ -96,10 +102,12 @@
   .tabs
       overflow hidden
       border-bottom 1px solid #ddd
-      vertical-align bottom
+      display flex
+      flex-direction row
+      align-items center
   .info-text
       color #999
       font-size 14px
-      display inline-block
+      flex auto
       width 68%
 </style>

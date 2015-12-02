@@ -3,7 +3,7 @@
 <template>
     <div class="filter-pane">
         <div>
-            <a href="#" v-for="tab in filterTab"  @click="toggleFilter(tab,$event)">{{tab | uppercase}}</a>
+            <a href="#" v-for="tab in filterTab"  @click="toggleFilter(tab,$event)" :class="{active:tab.active}">{{tab.type | uppercase}}</a>
         </div>
     </div>
 </template>
@@ -12,12 +12,27 @@
     export default {
         data () {
           return {
-            filterTab:['all','todo','done']
+            filterTab:[
+              {type:'all',active:false},
+              {type:'todo',active:false},
+              {type:'done',active:false}
+            ]
           }
+        },
+        props:['tab'],
+        ready(){
+            let type = this.tab;
+            this.filterTab.forEach(function(tab){
+              if(tab.type == type) return tab.active = true;
+            })
         },
         methods:{
           toggleFilter:function(tab,ev){
-            this.$dispatch('filter-toggle',tab);
+            this.$dispatch('filter-toggle',tab.type);
+            this.filterTab.map(function(tab){
+              return tab.active = false;
+            })
+            tab.active = true;
           }
         }
     }
@@ -25,12 +40,16 @@
 
 <style lang="stylus">
   .filter-pane
-      display inline-block
-      text-align right
+      vertical-align middle
       a
         text-decoration none
         color #ddd
         padding 5px 10px
+        font-size 12px
+        margin 0 2px
+        &:hover
+          outline 1px solid #ddd
         &.active
-          color #333
+          color #34495e
+          outline 1px solid #34495e
 </style>
