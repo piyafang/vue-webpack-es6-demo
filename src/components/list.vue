@@ -93,5 +93,8 @@
                 position absolute
                 right 12%
                 top 4px
-
+            .time-stamp
+                background rgba(0,0,0,0.2)
+                padding 5px 10px
+                font-size 12px
 </style>

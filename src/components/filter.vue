@@ -20,18 +20,18 @@
           }
         },
         props:['tab'],
-        ready(){
+        ready () {
             let type = this.tab;
             this.filterTab.forEach(function(tab){
               if(tab.type == type) return tab.active = true;
-            })
+            });
         },
         methods:{
           toggleFilter:function(tab,ev){
             this.$dispatch('filter-toggle',tab.type);
             this.filterTab.map(function(tab){
               return tab.active = false;
-            })
+            });
             tab.active = true;
           }
         }
@@ -46,7 +46,7 @@
         color #ddd
         padding 5px 10px
         font-size 12px
-        margin 0 2px
+        margin-left 2px
         &:hover
           outline 1px solid #ddd
         &.active

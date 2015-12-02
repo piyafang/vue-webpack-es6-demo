@@ -1,10 +1,10 @@
 <template>
   <div class="app">
-    <h1><img :src="logoUrl" alt="" width="30" height="30" /> {{appTitle}}</h1>
+    <h1>{{appTitle}}</h1>
     <my-item-add :title.sync="itemTitle" :place-holder="placeHolder"></my-item-add>
     <div class="tabs">
       <p class="info-text" v-show="listCount > 0">
-        {{listCount}} todo(s) remain
+        {{listCount}} todos remain
       </p>
       <p class="info-text" v-show="listCount === 0">
         No todos
@@ -14,6 +14,7 @@
     <ul class="list">
       <my-item-list :lists="filteredTodos"></my-item-list>
     </ul>
+    <my-footer></my-footer>
   </div>
 </template>
 
@@ -22,8 +23,8 @@
   import MyItemAdd from './../components/input.vue';
   import MyItemList from './../components/list.vue';
   import MyItemFilter from './../components/filter.vue';
+  import MyFooter from './../components/footer.vue';
   import TodoStorage from 'babel!./../common/store';
-  import LogoImg from 'file?name=[name].[ext]!./../assets/logo.png';
 
   export default {
     data(){
@@ -33,7 +34,6 @@
         itemList:TodoStorage.fetch(),
         filteredTodos:[],
         visibility:'all',
-        logoUrl:LogoImg,
         placeHolder:'type your title here...'
       }
     },
@@ -72,7 +72,8 @@
     components:{
       MyItemAdd,
       MyItemList,
-      MyItemFilter
+      MyItemFilter,
+      MyFooter
     }
   }
 
@@ -81,6 +82,8 @@
 <style lang="stylus">
   *
       box-sizing border-box
+  body
+      color #95a5a6
   .app
       margin 0 auto
       width 600px
