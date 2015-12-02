@@ -23,9 +23,12 @@
 <style lang="stylus">
     .input-form
         margin-top 20px
-        width 600px
+        width 100%
+        position relative
         input[type='text']
-            width 500px
+            width 100%
         button
-            width 74px
+            position absolute
+            right 0
+            top 0
 </style>

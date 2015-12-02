@@ -13,7 +13,8 @@ module.exports = function webpackMake(options) {
 
     config.output = {
         path: path.join(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath:'/'
     };
 
     config.resolve = {

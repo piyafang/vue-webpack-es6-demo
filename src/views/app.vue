@@ -1,15 +1,15 @@
 <template>
-  <div style="margin:0 auto;width:600px;">
-    <h1>{{appTitle}}</h1>
+  <div class="app">
+    <h1><img :src="logoUrl" alt="" width="30" height="30" /> {{appTitle}}</h1>
     <my-item-add :title.sync="itemTitle" :place-holder="placeHolder"></my-item-add>
     <div class="tabs">
       <p class="info-text">
-        当前共有{{listCount}}条todos
+        {{listCount}} todo(s) remain
       </p>
       <my-item-filter></my-item-filter>
     </div>
     <ul class="list">
-      <my-item-list :lists="itemList"></my-item-list>
+      <my-item-list :lists="filteredTodos"></my-item-list>
     </ul>
   </div>
 </template>
@@ -20,20 +20,31 @@
   import MyItemList from './../components/list.vue';
   import MyItemFilter from './../components/filter.vue';
   import TodoStorage from 'babel!./../common/store';
+  import LogoImg from 'url!./../assets/logo.png';
 
   export default {
     data(){
       return{
-        appTitle:'Todo List',
+        appTitle:'TODO LIST',
         itemTitle:'',
         itemList:TodoStorage.fetch(),
+        filteredTodos:[],
         visibility:'all',
+        logoUrl:LogoImg,
         placeHolder:'type your title here...'
       }
     },
     computed:{
       listCount () {
-        return this.itemList.length;
+        return this.itemList.filter(function(todo){
+          return todo.done == false;
+        }).length;
+      },
+      filteredTodos(){
+        let tab = this.visibility;
+        return tab == 'all' ? this.itemList: this.itemList.filter(function(todo){
+          return tab == 'todo' ? todo.done == false : todo.done == true;
+        });
       }
     },
     ready(){
@@ -62,6 +73,13 @@
 </script>
 
 <style lang="stylus">
+  *
+      box-sizing border-box
+  .app
+      margin 0 auto
+      width 600px
+      @media screen and (max-width: 600px)
+        width 100%
   h1
       text-align center
   input,button
@@ -71,7 +89,7 @@
       color #999
       line-height 3
   .list
-      width 600px
+      width 100%
       background #666
       list-style none
       padding 0

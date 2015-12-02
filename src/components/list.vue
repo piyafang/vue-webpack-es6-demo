@@ -1,11 +1,12 @@
 <template>
     <li class="list-item"
         v-for="list in lists"
+        v-bind:class="{done:list.done}"
         @dblclick="toggleEdit(list)">
         <div class="item-content"
         v-bind:class="{editable:list.editable}"
         contenteditable="{{list.editable}}">
-          <input type="checkbox" vm-model="list.done">
+          <input type="checkbox" v-model="list.done">
           {{ list.name }}
         </div>
         <a href="#" class="commit-btn" @click="toggleEdit(list)" v-show="list.editable">确认</a>
@@ -25,25 +26,35 @@
                 this.lists.$remove(list);
             },
             toggleEdit (list) {
-                list.editable = !list.editable;
+                if(!list.done) list.editable = !list.editable;
             }
         }
     }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
     .list
         .list-item
             color #fff
+            background #3d566e
             line-height 3
-            border-bottom 1px solid #333
+            border-bottom 1px solid #2c3e50
             position relative
             overflow hidden
+            &.done
+              background #1abc9c
+              color #fff
+              border-bottom 1px solid #16a085
+              .item-content
+                text-decoration line-through
             .item-content
                 width 90%
                 float left
                 text-indent 1em
                 box-sizing border-box
+                input[type="checkbox"]
+                  transform scale(2)
+                  margin 5px
             .editable
                 background #fff
                 color #333
@@ -56,7 +67,6 @@
                 cursor pointer
             .commit-btn
                 font-size 14px
-                background #eee
                 color #333
                 text-decoration none
                 border-radius 5px
