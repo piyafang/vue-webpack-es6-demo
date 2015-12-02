@@ -10,7 +10,7 @@
           <label for="todo-{{$index}}"></label>
           {{ list.name }}
         </div>
-        <a href="#" class="commit-btn" @click="toggleEdit(list)" v-show="list.editable">确认</a>
+        <a href="#" class="commit-btn" @click="toggleEdit(list)" v-show="list.editable">√</a>
         <span class="remove-btn" @click="remove(list)">&times;</span>
     </li>
 </template>
@@ -86,13 +86,15 @@
                 cursor pointer
             .commit-btn
                 font-size 14px
-                color #333
+                color #fff
                 text-decoration none
-                border-radius 5px
                 padding 0 20px
                 position absolute
-                right 12%
-                top 4px
+                right 60px
+                height 100%
+                top 1px
+                line-height 50px
+                background #f39c12
             .time-stamp
                 background rgba(0,0,0,0.2)
                 padding 5px 10px

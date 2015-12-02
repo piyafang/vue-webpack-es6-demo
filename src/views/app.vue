@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h1>{{appTitle}}</h1>
+    <h1><img :src="logoUrl" alt="" class="logo"/>{{appTitle}}</h1>
     <my-item-add :title.sync="itemTitle" :place-holder="placeHolder"></my-item-add>
     <div class="tabs">
       <p class="info-text" v-show="listCount > 0">
@@ -26,6 +26,8 @@
   import MyFooter from './../components/footer.vue';
   import TodoStorage from 'babel!./../common/store';
 
+  import LogoImg from 'url!./../assets/logo.png';
+
   export default {
     data(){
       return{
@@ -33,6 +35,7 @@
         itemTitle:'',
         itemList:TodoStorage.fetch(),
         filteredTodos:[],
+        logoUrl:LogoImg,
         visibility:'all',
         placeHolder:'type your title here...'
       }
@@ -84,6 +87,10 @@
       box-sizing border-box
   body
       color #95a5a6
+  .logo
+      width 30px
+      height 30px
+      margin 0 5px
   .app
       margin 0 auto
       width 600px

@@ -38,7 +38,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   .filter-pane
       vertical-align middle
       a
