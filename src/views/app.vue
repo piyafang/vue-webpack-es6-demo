@@ -62,6 +62,7 @@
       })
       this.$on('todo-add',function(todo){
         this.itemList.push(todo);
+        this.visibility = 'todo';
       })
     },
     watch:{
@@ -85,6 +86,7 @@
 <style lang="stylus">
   *
       box-sizing border-box
+      transition .2s
   body
       color #95a5a6
   .logo
