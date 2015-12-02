@@ -12,7 +12,7 @@
         add(ev){
           ev.preventDefault();
           if(this.title.trim()){
-            this.$parent.itemList.push({name:this.title,editable:false});
+            this.$dispatch('todo-add',{name:this.title,editable:false,done:false});
           }
           this.title = "";
         }
