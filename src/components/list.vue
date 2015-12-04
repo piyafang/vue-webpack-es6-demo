@@ -1,3 +1,4 @@
+// 模板
 <template>
     <li class="list-item"
         v-for="list in lists"
@@ -17,15 +18,16 @@
 
 <script type="text/ecmascript-6">
     export default {
-        data () {
-            return {
-            }
-        },
+        // 继承自父组件的data
         props: ['lists'],
         methods: {
+
+            // 移除todo
             remove (list) {
-                this.lists.$remove(list);
+                this.$dispatch('todo-remove',list);
             },
+
+            // 切换todo编辑状态
             toggleEdit (list) {
                 if(!list.done) list.editable = !list.editable;
             }

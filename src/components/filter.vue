@@ -10,17 +10,20 @@
 
 <script type="text/ecmascript-6">
     export default {
+        // 继承自父组件的data
+        props:['tab'],
+        data(){
+          return {
+            // 标签
+            tabs:[
+              {type:'all',active:false},
+              {type:'todo',active:false},
+              {type:'done',active:false}
+            ]
+          }
+        },
         computed:{
-          tabs(){
-            let tabs = [];
-            ['all','todo','done'].forEach(function(tab){
-              tabs.push({
-                type:tab,
-                active:false
-              });
-            })
-            return tabs;
-          },
+          // 激活的标签
           activeTabs(){
             let type = this.tab;
             return this.tabs.map(function(tab){
@@ -29,8 +32,8 @@
             });
           }
         },
-        props:['tab'],
         methods:{
+          // 切换
           toggleFilter:function(tab){
             this.$dispatch('filter-toggle',tab.type);
           }

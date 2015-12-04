@@ -21,6 +21,7 @@
     }
   }
 
+  // 简单的计时器
   function addTime (){
     return this.time = Moment().add(1,'s').format('YYYY-MM-DD·HH:mm:ss');
   }

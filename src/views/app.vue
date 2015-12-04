@@ -24,8 +24,9 @@
   import MyItemList from './../components/list.vue';
   import MyItemFilter from './../components/filter.vue';
   import MyFooter from './../components/footer.vue';
+  // babel-loader 引入js
   import TodoStorage from 'babel!./../common/store';
-
+  // url-loader 引入图片
   import LogoImg from 'url!./../assets/logo.png';
 
   export default {
@@ -34,18 +35,20 @@
         appTitle:'TODO LIST',
         itemTitle:'',
         itemList:TodoStorage.fetch(),
-        filteredTodos:[],
         logoUrl:LogoImg,
-        visibility:'all',
+        visibility:'all', // 默认filter
         placeHolder:'type your title here...'
       }
     },
     computed:{
+      // todo条数
       listCount () {
         return this.itemList.filter(function(todo){
           return todo.done == false;
         }).length;
       },
+
+      // 过滤todos
       filteredTodos(){
         let tab = this.visibility;
         return tab == 'all' ?
@@ -57,15 +60,16 @@
       }
     },
     ready(){
-      this.$on('filter-toggle',function(tab){
-        this.visibility = tab;
-      })
+      // 监听事件
+      this.$on('filter-toggle',(tab) => this.visibility = tab);
+      this.$on('todo-remove',(todo) => this.itemList.$remove(todo));
       this.$on('todo-add',function(todo){
         this.itemList.push(todo);
         this.visibility = 'todo';
-      })
+      });
     },
     watch:{
+      // 本地ls储存todolist
       itemList:{
         handler (lists) {
           TodoStorage.save(lists);
