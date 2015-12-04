@@ -3,7 +3,7 @@
     h1
       img.logo(:src="logoUrl",alt="")
       | {{appTitle}}
-    my-item-add(:title.sync="itemTitle",:place-holder="placeHolder")
+    my-item-add(:place-holder="placeHolder")
     div.tabs
       p.info-text(v-show="listCount > 0")
         | {{listCount}} todos remain
@@ -29,7 +29,6 @@
     data(){
       return{
         appTitle:'TODO LIST',
-        itemTitle:'',
         itemList:TodoStorage.fetch(),
         logoUrl:LogoImg,
         visibility:'all', // 默认过滤为all
