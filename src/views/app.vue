@@ -1,25 +1,21 @@
-<template>
-  <div class="app">
-    <h1><img :src="logoUrl" alt="" class="logo"/>{{appTitle}}</h1>
-    <my-item-add :title.sync="itemTitle" :place-holder="placeHolder"></my-item-add>
-    <div class="tabs">
-      <p class="info-text" v-show="listCount > 0">
-        {{listCount}} todos remain
-      </p>
-      <p class="info-text" v-show="listCount === 0">
-        No todos
-      </p>
-      <my-item-filter :tab="visibility"></my-item-filter>
-    </div>
-    <ul class="list">
-      <my-item-list :lists="filteredTodos"></my-item-list>
-    </ul>
-    <my-footer></my-footer>
-  </div>
+<template lang="jade">
+  div.app
+    h1
+      img.logo(:src="logoUrl",alt="")
+      | {{appTitle}}
+    my-item-add(:title.sync="itemTitle",:place-holder="placeHolder")
+    div.tabs
+      p.info-text(v-show="listCount > 0")
+        | {{listCount}} todos remain
+      p.info-text(v-show="listCount === 0")
+        | No todos
+      my-item-filter(:tab="visibility")
+    ul.list
+      my-item-list(:lists="filteredTodos")
+    my-footer
 </template>
 
 <script type="text/ecmascript-6">
-
   import MyItemAdd from './../components/input.vue';
   import MyItemList from './../components/list.vue';
   import MyItemFilter from './../components/filter.vue';
@@ -36,7 +32,7 @@
         itemTitle:'',
         itemList:TodoStorage.fetch(),
         logoUrl:LogoImg,
-        visibility:'all', // 默认filter
+        visibility:'all', // 默认过滤为all
         placeHolder:'type your title here...'
       }
     },
@@ -47,7 +43,6 @@
           return todo.done == false;
         }).length;
       },
-
       // 过滤todos
       filteredTodos(){
         let tab = this.visibility;
@@ -60,12 +55,15 @@
       }
     },
     events:{
+      // 切换过滤
       'filter-toggle'(tab){
         this.visibility = tab;
       },
+      // 移除todo
       'todo-remove'(todo){
         this.itemList.$remove(todo);
       },
+      // 添加todo
       'todo-add'(todo){
         this.itemList.push(todo);
         this.visibility = 'todo';
@@ -87,7 +85,6 @@
       MyFooter
     }
   }
-
 </script>
 
 <style lang="stylus">

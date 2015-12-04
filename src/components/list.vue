@@ -1,19 +1,12 @@
 // 模板
-<template>
-    <li class="list-item"
-        v-for="list in lists"
-        v-bind:class="{done:list.done}"
-        @dblclick="toggleEdit(list)">
-        <div class="item-content"
-        v-bind:class="{editable:list.editable}"
-        contenteditable="{{list.editable}}">
-          <input type="checkbox" v-model="list.done" id="todo-{{$index}}">
-          <label for="todo-{{$index}}" v-show="!list.editable"></label>
-          {{ list.name }}
-        </div>
-        <a href="#" class="commit-btn" @click="toggleEdit(list)" v-show="list.editable">√</a>
-        <span class="remove-btn" @click="remove(list)">&times;</span>
-    </li>
+<template lang="jade">
+    li.list-item(v-for="list in lists",v-bind:class="{done:list.done}",@dblclick="toggleEdit(list)")
+        div.item-content(v-bind:class="{editable:list.editable}",contenteditable="{{list.editable}}")
+          input(type="checkbox",v-model="list.done",id="todo-{{$index}}")
+          label(for="todo-{{$index}}",v-show="!list.editable")
+          |   {{ list.name }}
+        a.commit-btn(href="#",@click="toggleEdit(list)",v-show="list.editable") √
+        span.remove-btn(@click="remove(list)") &times;
 </template>
 
 <script type="text/ecmascript-6">
@@ -21,12 +14,10 @@
         // 继承自父组件的data
         props: ['lists'],
         methods: {
-
             // 移除todo
             remove (list) {
                 this.$dispatch('todo-remove',list);
             },
-
             // 切换todo编辑状态
             toggleEdit (list) {
                 if(!list.done) list.editable = !list.editable;
