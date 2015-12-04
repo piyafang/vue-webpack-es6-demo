@@ -1,11 +1,10 @@
 //Todo filter components
 
-<template>
-    <div class="filter-pane">
-        <div>
-            <a href="#" v-for="tab in activeTabs"  @click="toggleFilter(tab)" :class="{active:tab.active}">{{tab.type | uppercase}}</a>
-        </div>
-    </div>
+<template lang="jade">
+    div.filter-pane
+        div
+            a(href="#",v-for="tab in activeTabs",@click="toggleFilter(tab)",:class="{active:tab.active}")
+              | {{tab.type | uppercase}}
 </template>
 
 <script type="text/ecmascript-6">

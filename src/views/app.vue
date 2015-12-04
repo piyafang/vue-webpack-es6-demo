@@ -59,14 +59,17 @@
             });
       }
     },
-    ready(){
-      // 监听事件
-      this.$on('filter-toggle',(tab) => this.visibility = tab);
-      this.$on('todo-remove',(todo) => this.itemList.$remove(todo));
-      this.$on('todo-add',function(todo){
+    events:{
+      'filter-toggle'(tab){
+        this.visibility = tab;
+      },
+      'todo-remove'(todo){
+        this.itemList.$remove(todo);
+      },
+      'todo-add'(todo){
         this.itemList.push(todo);
         this.visibility = 'todo';
-      });
+      }
     },
     watch:{
       // 本地ls储存todolist
