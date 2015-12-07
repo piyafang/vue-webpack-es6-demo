@@ -2,18 +2,24 @@
   <div class="footer">
     <span><iframe src="http://ghbtns.com/github-btn.html?user=zephyrpersonal&amp;repo=vue-webpack-es6-demo&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe></span>
     <span>powered by <a href="http://vuejs.org/" target="_blank">vue.js</a></span>
-    <span>{{time}}</span>
+    <span>{{formatTime}}</span>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Moment from 'moment';
+
   Moment.locale('zh-cn');
 
   export default {
     data () {
       return{
-        time:Moment().format('YYYY-MM-DD·HH:mm:ss')
+        time:Moment()
+      }
+    },
+    computed:{
+      formatTime(){
+        return this.time.format('YYYY-MM-DD·HH:mm:ss')
       }
     },
     ready(){
@@ -23,7 +29,7 @@
 
   // 简单的计时器
   function addTime (){
-    return this.time = Moment().add(1,'s').format('YYYY-MM-DD·HH:mm:ss');
+    return this.time = Moment().add(1,'s')
   }
 
 </script>
