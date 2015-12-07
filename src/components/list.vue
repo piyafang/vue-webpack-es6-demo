@@ -1,9 +1,10 @@
 // 模板
 <template lang="jade">
     li.list-item(v-for="list in lists",v-bind:class="{done:list.done}",@dblclick="toggleEdit(list)")
-        div.item-content(v-bind:class="{editable:list.editable}",contenteditable="{{list.editable}}")
+        div.item-content
           input(type="checkbox",v-model="list.done",id="todo-{{$index}}")
           label(for="todo-{{$index}}",v-show="!list.editable")
+          input.editInput(v-model="list.name",v-show="list.editable")
           |   {{ list.name }}
         a.commit-btn(href="#",@click="toggleEdit(list)",v-show="list.editable") √
         span.remove-btn(@click="remove(list)") &times;
@@ -27,6 +28,15 @@
 </script>
 
 <style lang="stylus" scoped>
+    input.editInput
+        border-bottom 1px solid #eee
+        outline none
+        box-shadow none
+        width 90%
+        position absolute
+        left 0
+        top 0
+        background #eee
     .list
         .list-item
             color #fff
@@ -67,9 +77,6 @@
                     height 60%
                     left 20%
                     top 20%
-            .editable
-                background #ecf0f1
-                color #333
             .remove-btn
                 color #eee
                 float right
